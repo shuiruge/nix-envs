@@ -1,4 +1,5 @@
 # shell.nix
+# Reference: https://nixos.wiki/wiki/Tensorflow
 with import <nixpkgs> { };
 let
   pythonPackages = python37Packages;
