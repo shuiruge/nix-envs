@@ -1,2 +1,4 @@
 # nix-envs
-The shell.nix files for different environments.
+
+The `shell.nix` templates for different environments.
+
