@@ -13,7 +13,10 @@ mkShell {
     })
 
     # Other packages. 
-    # emacs
+    emacs
   ];
+  postShellHook = ''
+    agda-mode setup  # if use emacs.
+  '';
 }
 

@@ -1,5 +1,7 @@
 # Agda in Nix
 
+Here we setup the `agda` environment and the Emacs mode.
+
 ## Setup
 
 1. Create a directory called `src`. **This is the directory where all your source `*.agda` files locates.**
