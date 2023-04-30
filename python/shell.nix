@@ -28,7 +28,9 @@ in pkgs.mkShell rec {
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
   postShellHook = ''
-    pip install --no-cache-dir -r requirements.txt
+    if [ ! -d .venv ]; then
+      pip install --no-cache-dir -r requirements.txt
+    fi
   '';
 
 }
