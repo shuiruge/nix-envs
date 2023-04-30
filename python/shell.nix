@@ -29,7 +29,10 @@ in pkgs.mkShell rec {
   # This is optional and can be left out to run pip manually.
   postShellHook = ''
     if [ ! -d .venv ]; then
-      pip install --no-cache-dir -r requirements.txt
+      # pip install --no-cache-dir -r requirements.txt
+      pip install --no-cache-dir -r requirements.txt -i https://pypi.douban.com/simple/  # for Chinese user.
+    else
+      echo "Skipping pip install, './.venv' already exists."
     fi
   '';
 
