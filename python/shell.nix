@@ -14,15 +14,8 @@ in pkgs.mkShell rec {
     # dropping into the shell
     pythonPackages.venvShellHook
 
-    # Those are dependencies that we would like to use from nixpkgs, which will
-    # add them to PYTHONPATH and thus make them accessible from within the venv.
-    pythonPackages.requests
-    pythonPackages.ipython
-
-    # In this particular example, in order to compile any binary extensions they may
-    # require, the python modules listed in the hypothetical requirements.txt need
-    # the following packages to be installed locally:
-    openssl
+    # See: https://discourse.nixos.org/t/how-to-solve-libstdc-not-found-in-shell-nix/25458/16
+    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
   ];
 
   # Now we can execute any commands within the virtual environment.
@@ -30,7 +23,7 @@ in pkgs.mkShell rec {
   postShellHook = ''
     if [ ! -d .venv ]; then
       # pip install --no-cache-dir -r requirements.txt
-      pip install --no-cache-dir -r requirements.txt -i https://pypi.douban.com/simple/  # for Chinese user.
+      pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple  # for Chinese user.
     else
       echo "Skipping pip install, './.venv' already exists."
     fi
