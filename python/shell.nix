@@ -13,10 +13,10 @@ in pkgs.mkShell rec {
     # This execute some shell code to initialize a venv in $venvDir before
     # dropping into the shell
     pythonPackages.venvShellHook
-
-    # See: https://discourse.nixos.org/t/how-to-solve-libstdc-not-found-in-shell-nix/25458/16
-    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
   ];
+
+  # See: https://discourse.nixos.org/t/how-to-solve-libstdc-not-found-in-shell-nix/25458/16
+  LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
 
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
