@@ -15,18 +15,22 @@ in pkgs.mkShell rec {
     pythonPackages.venvShellHook
   ];
 
-  # See: https://discourse.nixos.org/t/how-to-solve-libstdc-not-found-in-shell-nix/25458/16
-  LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
-
   # Now we can execute any commands within the virtual environment.
-  # This is optional and can be left out to run pip manually.
   postShellHook = ''
-    if [ ! -d .venv ]; then
-      # pip install --no-cache-dir -r requirements.txt
-      pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple  # for Chinese user.
-    else
-      echo "Skipping pip install, './.venv' already exists."
-    fi
+
+    # Cannot find lib.std.c error:
+    # See: https://discourse.nixos.org/t/how-to-solve-libstdc-not-found-in-shell-nix/25458/16
+    export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc}/lib:$LD_LIBRARY_PATH"
+
+    # Cannot find libz.so.1 error:
+    # See: https://discourse.nixos.org/t/poetry-pandas-issue-libz-so-1-not-found/17167/6
+    # export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath buildInputs}:$LD_LIBRARY_PATH"
+    # export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"
+
+    # Run pip.
+    # pip install --no-cache-dir -r requirements.txt
+    # For Chinese user.
+    pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple  
   '';
 
 }
