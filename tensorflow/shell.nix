@@ -28,8 +28,8 @@ in pkgs.mkShell rec {
     unset SOURCE_DATE_EPOCH
 
     # Setup local virtual environment.
-    pip install . -r requirements.txt
+    pip install -r requirements.txt
     # Or in China.
-    # pip install . -r requirements.txt -i https://pypi.douban.com/simple
+    # pip install -r requirements.txt -i https://pypi.douban.com/simple
   '';
 }
