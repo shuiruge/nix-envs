@@ -30,9 +30,7 @@ in pkgs.mkShell rec {
     # export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"
 
     # Run pip.
-    pip install --no-cache-dir -r requirements.txt
-    # For Chinese user.
-    # pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple  
+    TMPDIR=/tmp pip install -r requirements.txt
   '';
 
 }
